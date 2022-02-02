@@ -1,4 +1,4 @@
-# Write your code below game_hash
+require 'pry'
 def game_hash
   {
     home: {
@@ -126,4 +126,67 @@ def game_hash
   }
 end
 
-# Write code here
+
+
+def num_points_scored(name)
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  all_players = home_players + away_players
+
+  player = all_players.find {|player| player[:player_name] == name}
+  player[:points]
+end
+
+def shoe_size(name)
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  all_players = home_players + away_players
+
+  player_hash=all_players.find {|player| player[:player_name] == name}
+  player_hash[:shoe]
+end
+
+def team_colors(team_name)
+  team_hash = game_hash.find do |k,v| v[:team_name] == team_name
+    end
+  kvp = team_hash[1]
+  return kvp[:colors]
+end
+
+def team_names
+result = game_hash.map {|k,v|
+v[:team_name]
+}
+end
+
+def player_numbers(team_name)
+  team_hash = game_hash.find do |k,v| v[:team_name] == team_name
+    end
+  team_hash[1][:players].map {|playerhash| playerhash[:number]}
+
+end
+
+def player_stats(name)
+  home_players = game_hash[:home][:players]
+  away_players = game_hash[:away][:players]
+  all_players = home_players + away_players
+
+  player_hash=all_players.find {|player| player[:player_name] == name}
+end
+
+def big_shoe_rebounds
+   home_players = game_hash[:home][:players]
+   away_players = game_hash[:away][:players]
+   all_players = home_players + away_players
+    
+   player_hash = {all_players[0]}
+   all_players.each { |player_info|
+    if player_info[:shoe] > player_hash[:shoe]
+      player_hash=player_info
+      
+    end
+    binding.pry
+  }
+
+    player_hash[:rebounds]
+end
